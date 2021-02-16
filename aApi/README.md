@@ -1,16 +1,40 @@
-## Micronaut 2.3.2 Documentation
+#Prerequisitos
+Instala primero rabitmq en tu entorno de desarrollo
 
-- [User Guide](https://docs.micronaut.io/2.3.2/guide/index.html)
-- [API Reference](https://docs.micronaut.io/2.3.2/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/2.3.2/guide/configurationreference.html)
-- [Micronaut Guides](https://guides.micronaut.io/index.html)
----
-
-## Feature http-client documentation
-
-- [Micronaut HTTP Client documentation](https://docs.micronaut.io/latest/guide/index.html#httpClient)
-
-## Feature rabbitmq documentation
+### Feature rabbitmq documentation
 
 - [Micronaut RabbitMQ Messaging documentation](https://micronaut-projects.github.io/micronaut-rabbitmq/latest/guide/index.html)
 
+###Crea en rabbitmq un exchange llamado
+skydropx.demo
+
+###Crea dos queue
+order-queue
+shipment-queue
+
+###Bindea las respectivas colas a el exchange nombralas order y shipment respectivamente
+
+###Puntos a tomar encuenta
+. El user y password seteados en el proyecto son los default guest guest
+. La url de rabit es la default amqp://localhost:5672
+. si gustas modificarlo editalo en aplication.yaml tanto para el api a como para el api b
+
+## Correr los test api b
+```
+./gradlew clean test
+
+```
+
+## Iniciar las api a y b
+```
+cd aApi ... cd bApi
+./gradlew clean run
+
+```
+
+## Probar envio de ordenes fedex atravez de las apis
+
+```
+curl -i -X GET \
+ 'http://localhost:8080/order/fedex/send'
+```

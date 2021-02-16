@@ -31,3 +31,11 @@ cd aApi ... cd bApi
 ./gradlew clean run
 
 ```
+
+
+## Probar envio de ordenes fedex atravez de las apis
+
+```
+curl -i -X GET \
+ 'http://localhost:8080/order/fedex/send'
+```
