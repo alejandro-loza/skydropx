@@ -1,0 +1,9 @@
+micronaut:
+  application:
+    name: AApi
+  server:
+    port: 8081
+rabbitmq:
+  uri: amqp://localhost:5672
+  username: guest
+  password: guest
