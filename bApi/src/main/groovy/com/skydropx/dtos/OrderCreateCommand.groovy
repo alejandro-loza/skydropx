@@ -14,10 +14,11 @@ import javax.validation.constraints.NotNull
 class OrderCreateCommand {
 
     @NotNull()
-    Long customerId
+    @NotBlank()
+    String carrier
 
     @NotNull()
-    Double totalCost
+    Long trackingNumber
 
     @NotNull()
     @NotBlank()

@@ -19,7 +19,7 @@ class OrderConsumer {
 
     @Queue("order-queue")
     Shipment receive(Order order) throws InterruptedException {
-        LOG.info("Order with id $order.id customer $order.customerId received!")
+        LOG.info("Order with traking number id $order.trackingNumber and Carrier $order.carrier received!")
         LOG.info("Creating shipment...")
         /* shipping is slow! */
         Thread.sleep(15*1000)

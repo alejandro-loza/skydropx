@@ -15,29 +15,19 @@ class OrderController {
     @Inject
     OrderService orderService
 
-    @Get("/")
+    @Get("/fedex")
     HttpResponse<List<Order>> listOrders() {
-        return HttpResponse.ok(orderService.listOrders())
+        return HttpResponse.ok(orderService.listFedexOrders())
     }
 
-    @Get("/{id}")
-    HttpResponse getOrder(Long id) {
-        Order order = orderService.getOrderById(id)
-        if( order != null ) {
-            return HttpResponse.ok(order)
-        }
-        return HttpResponse.notFound()
+    @Get("/fedex/send")
+    HttpResponse<List<Order>> sendOrders() {
+        return HttpResponse.ok(orderService.sendFedexOrders())
     }
 
     @Post("/")
     HttpResponse<Order> newOrder(@Body OrderCreateCommand order) {
         return HttpResponse.created(orderService.newOrder(order))
-    }
-
-    @Put("/")
-    HttpResponse updateOrder(@Body Order order) {
-        orderService.updateOrder(order)
-        return HttpResponse.ok()
     }
 
 }

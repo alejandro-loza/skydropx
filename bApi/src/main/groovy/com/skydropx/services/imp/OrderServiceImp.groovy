@@ -1,8 +1,10 @@
 package com.skydropx.services.imp
 
+import com.skydropx.dtos.FedexShippmentDto
 import com.skydropx.dtos.OrderCreateCommand
 import com.skydropx.messaging.OrderProducer
 import com.skydropx.domain.Order
+import com.skydropx.services.FedexService
 import com.skydropx.services.OrderService
 
 import javax.inject.Inject
@@ -12,23 +14,27 @@ class OrderServiceImp implements OrderService {
     @Inject
     OrderProducer orderProducer
 
+    @Inject
+    FedexService fedexService
+
     public List<Order> orders = new ArrayList<>()
 
     @Override
-    Order getOrderById(Long id) {
-        return orders.stream().filter(it -> it.id.equals(id)).findFirst().orElse(null)
+    List<FedexShippmentDto> listFedexOrders() {
+        return fedexService.getShipments()
     }
 
     @Override
-    List<Order> listOrders() {
-        return orders
-    }
-
-    @Override
-    void updateOrder(Order order) {
-        Order existingOrder = getOrderById(order.id as Integer)
-        int i = orders.indexOf(existingOrder)
-        orders.set(i, order)
+    void sendFedexOrders() {
+        fedexService.getShipments().each {FedexShippmentDto dto ->
+            Order order = new Order()
+            order.with {
+                order.id = dto.tracking_number as Long
+                trackingNumber = dto.tracking_number
+                carrier = dto.carrier
+            }
+            orderProducer.send(order)
+        }
     }
 
     @Override
@@ -36,8 +42,8 @@ class OrderServiceImp implements OrderService {
         Order order = new Order()
         order.with {
             order.id = (long) orders.size() + 1
-            totalCost = cmd.totalCost
-
+            trackingNumber = cmd.trackingNumber
+            carrier = cmd.carrier
         }
         this.orders.add(order)
         orderProducer.send(order)

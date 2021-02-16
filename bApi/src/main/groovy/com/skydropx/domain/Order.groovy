@@ -6,19 +6,16 @@ import io.micronaut.core.annotation.Introspected;
 class Order {
 
     Long id
-    Long customerId
-    Double totalCost
+    String carrier
+    String trackingNumber
     ShipmentStatus shipmentStatus
 
     Order(){}
 
-    Order(Integer customerId, Double totalCost, ShipmentStatus shipmentStatus) {
-        this.customerId = customerId
-        this.totalCost = totalCost
+    Order(String carrier, String trackingNumber, ShipmentStatus shipmentStatus) {
+        this.carrier = carrier
+        this.trackingNumber = trackingNumber
         this.shipmentStatus = shipmentStatus != null ? shipmentStatus : ShipmentStatus.PENDING
     }
 
-    void setShipmentStatus(ShipmentStatus shipmentStatus) {
-        this.shipmentStatus = shipmentStatus
-    }
 }

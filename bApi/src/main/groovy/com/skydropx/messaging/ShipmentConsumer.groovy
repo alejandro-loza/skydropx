@@ -15,18 +15,10 @@ class ShipmentConsumer {
 
     private static final Logger LOG = LoggerFactory.getLogger(ShipmentConsumer.class)
 
-    @Inject
-    OrderServiceImp orderService
-
     @Queue("shipment-queue")
     void receive(Shipment shipment) {
         LOG.info("Shipment message received!")
         LOG.info("Updating order $shipment.orderId shipment status...")
-      /*  Order order = orderService.getOrderById(shipment.orderId)
-        LOG.info("Order to update $order.id ")
-
-        order.shipmentStatus = ShipmentStatus.SHIPPED
-        orderService.updateOrder(order)*/
         LOG.info("Order shipment status updated!")
     }
 }

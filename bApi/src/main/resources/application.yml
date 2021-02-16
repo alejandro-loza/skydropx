@@ -5,3 +5,5 @@ rabbitmq:
   uri: amqp://localhost:5672
   username: guest
   password: guest
+fedex:
+  url: 'https://my-json-server.typicode.com/pinkymanga/skydropx'
