@@ -1,9 +1,8 @@
 package com.skydropx.messaging
 
-import com.skydropx.domain.Order
+
 import com.skydropx.domain.Shipment
-import com.skydropx.domain.ShipmentStatus
-import com.skydropx.services.OrderService
+import com.skydropx.services.imp.OrderServiceImp
 import io.micronaut.rabbitmq.annotation.RabbitListener
 import io.micronaut.rabbitmq.annotation.Queue
 import org.slf4j.Logger
@@ -17,7 +16,7 @@ class ShipmentConsumer {
     private static final Logger LOG = LoggerFactory.getLogger(ShipmentConsumer.class)
 
     @Inject
-    OrderService orderService
+    OrderServiceImp orderService
 
     @Queue("shipment-queue")
     void receive(Shipment shipment) {

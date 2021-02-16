@@ -12,27 +12,21 @@ import javax.inject.Inject
 @Controller("/order")
 @Validated
 class OrderController {
-
     @Inject
-   OrderService orderService
+    OrderService orderService
 
     @Get("/")
     HttpResponse<List<Order>> listOrders() {
-        return HttpResponse.ok(
-                orderService.listOrders()
-        )
+        return HttpResponse.ok(orderService.listOrders())
     }
 
     @Get("/{id}")
     HttpResponse getOrder(Long id) {
         Order order = orderService.getOrderById(id)
         if( order != null ) {
-            return HttpResponse.ok(
-                    order
-            )
+            return HttpResponse.ok(order)
         }
         return HttpResponse.notFound()
-
     }
 
     @Post("/")
@@ -45,4 +39,5 @@ class OrderController {
         orderService.updateOrder(order)
         return HttpResponse.ok()
     }
+
 }
